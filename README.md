@@ -14,22 +14,16 @@
 
 ## Interperter implementation progress bar
 
-1. Examples: ![](https://geps.dev/progress/12)
+1. Examples:             ![](https://geps.dev/progress/12)
 
-<label for="examples"> Examples: </laber>        
-<progress id= "examples" value="12" max="100">12%</progress>
+2. Grammar:              ![](https://geps.dev/progress/0)
 
-<label for="grammar"> Grammar:  </label>       
-<progress id ="grammar" value="0" max="100">0%</progress>
+3. Tokenizer:            ![](https://geps.dev/progress/0)
 
-<label for="tokenizer"> Tokenizer: </label>      
-<progress id="tokenizer" value="0" max="100">0%</progress> 
+4. Parser:               ![](https://geps.dev/progress/0)
 
-<label for="topdown"> Topdown parser: </label> 
-<progress id="topdown" value="0" max="100">0%</progress> 
+5. Evaluator:            ![](https://geps.dev/progress/0)
 
-<label for="evaluator"> Evaluator: </label>      
-<progress id="evaluator" value="0" max="100">0%</progress> 
 
 ## Some of the examples in this language
 
