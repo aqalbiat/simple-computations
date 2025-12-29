@@ -1,0 +1,31 @@
+job main() start
+
+    make a(array(integer, 10));
+
+    make i(integer) = 0;
+
+    loop (lt(i, 10)) start
+        listen(at(a, i));
+        i = add(i, 1);
+    finish
+
+    i = 0;
+
+    loop(lt(i, 10)) start
+        make j(integer) = i;
+        loop(lt(j, 9)) start
+            if (gt(at(a, j), at(a, add(j, 1)))) start
+                make tmp(integer) = at(a, j);
+                at(a, j) = at(a, add(j, 1));
+                at(a, add(j, 1)) = tmp;
+            finish
+        finish
+    finish
+
+    i = 0;
+
+    loop(lt(i, 10)) start
+        serve(at(a, i));
+    finish
+
+finish

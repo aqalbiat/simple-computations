@@ -1,0 +1,27 @@
+job gcd(make x(integer), make y(integer)) (integer) start
+
+    if (lt(x, y)) start
+        return call(gcd, y, x);
+    finish
+
+    if (eq(y, 0)) start
+        return y;
+    finish
+
+    x = sub(x, y);
+    return call(gcd, x, y);
+
+finish
+
+job main() start
+
+    make a(integer);
+    make b(integer);
+
+    listen(a, b);
+
+    make g(integer) = call(gcd, a, b);
+
+    serve(g);
+
+finish
