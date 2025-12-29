@@ -14,11 +14,11 @@
 
 ## Interperter implementation progress bar
 
-1. Examples:        <progress value="12" max="100"></progress> 12%
-2. Grammar:         <progress value="0" max="100"></progress> 0%
-3. Tokenizer:       <progress value="0" max="100"></progress> 0%
-4. Topdown parser:  <progress value="0" max="100"></progress> 0%
-5. Evaluator:       <progress value="0" max="100"></progress> 0%
+1. Examples:        <progress value="12" max="100">12%</progress>
+2. Grammar:         <progress value="0" max="100">0%</progress>
+3. Tokenizer:       <progress value="0" max="100">0%</progress> 
+4. Topdown parser:  <progress value="0" max="100">0%</progress> 
+5. Evaluator:       <progress value="0" max="100">0%</progress> 
 
 ## Some of the examples in this language
 
