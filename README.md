@@ -12,6 +12,14 @@
 - Implement a topdown parser that realises the sufficient grammar
 - Implement an evaluator given an AST from the topdown parser
 
+## Interperter implementation progress bar
+
+1. Examples:        <progress value="12" max="100"></progress> 12%
+2. Grammar:         <progress value="0" max="100"></progress> 0%
+3. Tokenizer:       <progress value="0" max="100"></progress> 0%
+4. Topdown parser:  <progress value="0" max="100"></progress> 0%
+5. Evaluator:       <progress value="0" max="100"></progress> 0%
+
 ## Some of the examples in this language
 
 ### First example
