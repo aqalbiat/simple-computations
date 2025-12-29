@@ -28,7 +28,7 @@ job main() start
 
     listen(a, b, c);
 
-    make res(real, 5) = (a + b + c) / 3.0;
+    make res(real, 5) = div(add(a, b, c), 3.0);
 
     serve(res);
 
@@ -45,6 +45,8 @@ make a(real, 5);
 ```
 
 Here the name of the variable is *a* and and it is type of *real* with 5 decimal digits saved after the dot. 
+
+In addition, special functions for arithmetic operations will be used: *add*, *sub*, *mul*, *div*.
 
 ---
 
@@ -64,7 +66,7 @@ job gcd(make x(integer), make y(integer)) (integer) start
         return y;
     finish
 
-    x = x - y;
+    x = sub(x, y);
     return call(gcd, x, y);
 
 finish
@@ -84,6 +86,64 @@ finish
 
 ```
 
-In this example it is seen that functions are created using the special word *job* and they can be called by *call*
+- In this example it is seen that functions are created using the special word *job* and they can be called by *call*
+
+```
+
+job gcd(make x(integer), make y(integer)) (integer) start
+
+...
+
+make g(integer) = call(gcd, a, b);
+
+```
+
+Also, for comparisions and logical operations some special functions will be used: *lt*, *gt*, *eq*, *and*, *or*, *not*
+
+---
+
+### Third example
+
+- This program read an array and sorts it with some quadratic sorting algorithm
+
+```
+
+job main() start
+
+    make a(array(integer, 10));
+
+    make i(integer) = 0;
+
+    loop (lt(i, 10)) start
+        listen(at(a, i));
+        i = add(i, 1);
+    finish
+
+    i = 0;
+
+    loop(lt(i, 10)) start
+        make j(integer) = i;
+        loop(lt(j, 9)) start
+            if (gt(at(a, j), at(a, add(j, 1)))) start
+                make tmp(integer) = at(a, j);
+                at(a, j) = at(a, add(j, 1));
+                at(a, add(j, 1)) = tmp;
+            finish
+        finish
+    finish
+
+    i = 0;
+
+    loop(lt(i, 10)) start
+        serve(at(a, i));
+    finish
+
+finish
+
+```
+
+Here an array could be created in similar manner as variables but with special keyword *array*. 
+
+And *loop* will be used to carry out repeated actions. 
 
 ---
