@@ -36,10 +36,10 @@ job binary_power(make base(Matr2by2), make power(integer)) (Matr2by2) start
 
     loop(gt(power, 0)) start
         if (eq(mod(power, 2), 1)) start
-            res = mul_matr2b2(res, base);
+            res = call(mul_matr2b2, res, base);
         finish
         power = div(power, 2);
-        base = mul_matr2b2(base, base);
+        base = call(mul_matr2b2, base, base);
     finish
 
     return res;
