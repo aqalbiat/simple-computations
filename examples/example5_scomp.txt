@@ -1,0 +1,36 @@
+
+job factorial(make n(integer)) (integer) start
+
+    make last(integer) = add(n, 1);
+    make res(integer) = 1;
+    make i(integer) = 1;
+
+    loop(lt(i, last)) start
+        res = mul(res, i);
+        i = add(i, 1);
+    finish
+
+    return res;
+
+finish
+
+job combination(make n(integer), make k(integer)) (integer) start
+
+    make nom(integer) = call(factorial, n);
+    make denom(integer) = mul(call(factorial, k), call(factorial, sub(n, k)));
+    make res(integer) = div(nom, denom);
+
+    return res;
+
+finish
+
+job main() start
+
+    make all(integer);
+    make choose(integer);
+
+    listen(all, choose);
+
+    serve(call(combination, all, choose));
+
+finish

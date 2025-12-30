@@ -35,13 +35,13 @@
 
 job main() start
 
-    make a(real, 5);
-    make b(real, 5);
-    make c(real, 5);
+    make a(real(5));
+    make b(real(5));
+    make c(real(5));
 
     listen(a, b, c);
 
-    make res(real, 5) = div(add(a, b, c), 3.0);
+    make res(real(5)) = div(add(a, b, c), 3.0);
 
     serve(res);
 
@@ -53,7 +53,7 @@ finish
 
 ```
 
-make a(real, 5);
+make a(real(5));
 
 ```
 

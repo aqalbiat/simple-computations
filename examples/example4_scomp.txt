@@ -1,0 +1,17 @@
+
+job main() start
+
+    make f(integer);
+    make res(integer) = 0;
+
+    listen(f);
+
+    make i(integer) = 1;
+    loop(lt(i, 11)) start
+        res = add(res, i);
+        i = add(i, 1);
+    finish
+
+    serve(res);
+
+finish

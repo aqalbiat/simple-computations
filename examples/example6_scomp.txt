@@ -1,0 +1,44 @@
+
+make n(integer);
+make g(array(array(integer, 30), 30));
+make used(array(integer, 30));
+
+
+job dfs(make v(integer)) start
+    make to(integer) = 1;
+    at(used, v) = 1;
+    loop(lt(to, add(n, 1))) start
+        if (not(eq(at(used, to), 1))) start
+            call(dfs, to);
+        finish
+        to = add(to, 1);
+    finish
+finish
+
+job main() start
+
+    listen(n);
+
+    make i(integer) = 1;
+    loop(lt(i, add(n, 1))) start
+        make j(integer) = 1;
+        loop(lt(j, add(n, 1))) start
+            listen(at(at(g, i), j));
+            j = add(j, 1);
+        finish
+        i = add(i, 1);
+    finish
+
+    make cnt_comp(integer) = 0;
+    i = 1;
+    loop(lt(i, add(n, 1))) start
+        if (not(eq(at(used, i), 1))) start
+            call(dfs, i);
+            cnt_comp = add(cnt_comp, 1);
+        finish
+        i = add(i, 1);
+    finish
+
+    serve(cnt_comp);
+
+finish
