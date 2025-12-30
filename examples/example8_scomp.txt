@@ -1,0 +1,65 @@
+
+create Matr2by2 start
+
+    make a(array(array(real(10), 2), 2));
+
+finish
+
+job mul_matr2b2(make A(Matr2by2), make B(Matr2by2)) (Matr2by2) start
+
+    make res(Matr2by2);
+
+    at(at(get(res, a), 0), 0) = add(mul(at(at(get(A, a), 0), 0), at(at(get(B, a), 0), 0)), 
+                                    mul(at(at(get(A, a), 1), 0), at(at(get(B, a), 0), 1)));
+
+    at(at(get(res, a), 0), 1) = add(mul(at(at(get(A, a), 0), 1), at(at(get(B, a), 0), 0)), 
+                                    mul(at(at(get(A, a), 1), 1), at(at(get(B, a), 0), 1)));
+
+    at(at(get(res, a), 1), 0) = add(mul(at(at(get(A, a), 0), 0), at(at(get(B, a), 1), 0)), 
+                                    mul(at(at(get(A, a), 1), 0), at(at(get(B, a), 1), 1)));
+
+    at(at(get(res, a), 1), 1) = add(mul(at(at(get(A, a), 0), 1), at(at(get(B, a), 1), 0)), 
+                                    mul(at(at(get(A, a), 1), 1), at(at(get(B, a), 1), 1)));
+
+    return res;
+
+finish
+
+job binary_power(make base(Matr2by2), make power(integer)) (Matr2by2) start
+
+    make res(Matr2by2);
+
+    at(at(get(res, a), 0), 0) = 1;
+    at(at(get(res, a), 0), 1) = 0;
+    at(at(get(res, a), 1), 0) = 0;
+    at(at(get(res, a), 1), 1) = 1;
+
+    loop(gt(power, 0)) start
+        if (eq(mod(power, 2), 1)) start
+            res = mul_matr2b2(res, base);
+        finish
+        power = div(power, 2);
+        base = mul_matr2b2(base, base);
+    finish
+
+    return res;
+
+finish
+
+job main() start
+
+    make n(integer);
+    listen(n);
+
+    make f(Matr2by2);
+
+    at(at(get(res, a), 0), 0) = 1;
+    at(at(get(res, a), 0), 1) = 1;
+    at(at(get(res, a), 1), 0) = 1;
+    at(at(get(res, a), 1), 1) = 0;
+
+    make result(Matr2by2) = call(binary_power, f, n);
+
+    serve(at(at(get(result, a), 0), 0));
+
+finish
