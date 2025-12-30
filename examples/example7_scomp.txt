@@ -1,0 +1,27 @@
+
+job gcd(make x(integer), y(integer)) (integer) start
+
+    loop(not(eq(y, 0))) start
+        if (lt(x, y)) start
+            make tmp(integer) = x;
+            x = y;
+            y = tmp;
+        finish else start
+            x = mod(x, y);
+        finish
+    finish
+
+    return x;
+
+finish
+
+job main() start
+
+    make a(integer);
+    make b(integer);
+
+    listen(a, b);
+
+    serve(call(gcd, a, b));
+
+finish
