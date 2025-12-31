@@ -53,10 +53,10 @@ job main() start
 
     make f(Matr2by2);
 
-    at(at(get(res, a), 0), 0) = 1;
-    at(at(get(res, a), 0), 1) = 1;
-    at(at(get(res, a), 1), 0) = 1;
-    at(at(get(res, a), 1), 1) = 0;
+    at(at(get(f, a), 0), 0) = 1;
+    at(at(get(f, a), 0), 1) = 1;
+    at(at(get(f, a), 1), 0) = 1;
+    at(at(get(f, a), 1), 1) = 0;
 
     make result(Matr2by2) = call(binary_power, f, n);
 
