@@ -1,0 +1,64 @@
+
+create complex start
+
+    make Re(real(10));
+    make Im(real(10));
+
+finish
+
+job mul_compl(make A(complex), make B(complex)) (complex) start
+
+    make res(complex);
+
+    get(res, Re) = sub(mul(get(A, Re), get(B, Re)), mul(get(A, Im), get(B, Im)));
+
+    get(res, Im) = add(mul(get(A, Re), get(B, Im)), mul(get(A, Im), get(B, Re)));
+
+    return res;
+
+finish
+
+job absolute_value(make nbr(real(10))) (real(10)) start
+
+    if (eq(nbr, 0.0)) start
+        return 0.0;
+    finish
+
+    if (gt(nbr, 0.0)) start
+        return nbr;
+    finish
+
+    make res(real(10)) = sub(0.0, nbr);
+
+    return res;
+
+finish
+
+job main() start
+
+    make x1(real(10));
+    make y1(real(10));
+    make x2(real(10));
+    make y2(real(10));
+    make x3(real(10));
+    make y3(real(10));
+
+    listen(x1, y1);
+    listen(x2, y2);
+    listen(x3, y3);
+
+    make v1(complex);
+    get(v1, Re) = sub(x2, x1);
+    get(v1, Im) = sub(y2, y1);
+
+    make v2(complex);
+    get(v2, Re) = sub(x3, x1);
+    get(v2, Im) = sub(y3, y1);
+
+    make u(complex) = mul_compl(v1, v2);
+
+    make area(real(10)) = div(get(u, Im), 2.0);
+
+    serve(area);
+
+finish
