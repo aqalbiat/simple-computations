@@ -1,0 +1,65 @@
+Simple Computations — Open Copyleft License (OCL) v1.0
+Copyright © 2026 Aman Kalbiat
+
+1. Permission & Conditions
+
+This software is free and open-source. You are permitted to use, study, modify, and distribute this software, including in commercial or academic contexts, only if all of the following conditions are met:
+
+a) Attribution
+
+Any project, derivative work, tool, binary, compiler, interpreter, or runtime created from this software must provide clear credit to the original author.
+A required attribution notice must be included in documentation, build output, or About/Help screens:
+
+Based on "Simple Computations" by Aman Kalbiat
+Repository: https://github.com/aqalbiat/simple-computations
+Contact: qalbiataman@gmail.com
+
+b) Copyleft (No Proprietary Forks)
+
+All modified versions, forks, improvements, and derivative works must remain open source and be licensed under this same license or another GPL-compatible copyleft license.
+You may not:
+
+Make proprietary/closed-source versions
+
+Distribute binaries without source code
+
+Re-license under a more restrictive or private license
+
+c) Source Code Availability
+
+If you distribute a modified version or a compiled binary, you must also provide access to the full corresponding source code without charge.
+
+2. Redistribution Requirements
+
+You may redistribute this software if:
+
+This license file is included unmodified
+
+Attribution remains intact
+
+Your distribution clearly states where modifications were made (if any)
+
+3. Commercial Use
+
+Commercial use is allowed if and only if all conditions above are fulfilled (attribution + open source + copyleft compliance).
+
+4. No Warranty
+
+This software is provided “AS IS” without any warranties, express or implied.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED,
+INCLUDING BUT NOT LIMITED TO WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR
+PURPOSE, OR NON-INFRINGEMENT. IN NO EVENT SHALL THE AUTHORS BE LIABLE FOR ANY CLAIM,
+DAMAGES, OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT, OR OTHERWISE,
+ARISING FROM, OUT OF, OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS
+IN THE SOFTWARE.
+
+5. Recommended Notice for Source Files
+
+Add the following to the top of each source file:
+
+// Part of Simple Computations
+// © 2026 Aman Kalbiat — Licensed under OCL v1.0
+// https://github.com/aqalbiat/simple-computations
+
+End of License
