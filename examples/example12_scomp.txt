@@ -1,16 +1,67 @@
 
 job gcd(make x(integer), make y(integer)) (integer) start
 
+    loop(gt(y, 0)) start
+        if (gt(y, x)) start
+            make tmp(integer) = x;
+            x = y;
+            y = tmp;
+        finish else start
+            x = mod(x, y);
+        finish
+    finish
+
+    return x;
+
 finish
 
 job phi(make r(integer)) (integer) start
+
+    make i(integer) = 2;
+
+    make res(integer) = r;
+    loop(or(lt(mul(i, i), r), eq(mul(i, i), r))) start
+        if (eq(mod(r, i), 0)) start
+            res = sub(res, div(res, i));
+            loop(eq(mod(r, i), 0)) start
+                r = div(r, i);
+            finish
+        finish
+    finish
+    if (gt(r, 1)) start
+        res = sub(res, div(res, r));
+    finish
+
+    return res;
 
 finish
 
 job binpow(make base(integer), make pw(integer), make M(integer)) (integer) start
 
+    make res(integer) = 1;
+    loop(gt(pw, 0)) start
+        if (eq(mod(pw, 2), 1)) start
+            res = mod(mul(res, base), M);
+        finish
+        base = mod(mul(base, base), M);
+        pw = div(pw, 2);
+    finish
+
+    return res;
+
 finish
 
 job main() start
+
+    make a(integer), m(integer);
+    listen(a, m);
+
+    if (not(eq(call(gcd, a, m), 1))) start
+        serve("Impossible");
+    finish
+
+    make res(integer) = call(binpow, a, sub(call(phi, m), 1), m);
+
+    serve(res);
 
 finish
