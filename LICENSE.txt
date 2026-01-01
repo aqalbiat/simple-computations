@@ -3,12 +3,16 @@ Copyright © 2026 Aman Kalbiat
 
 1. Permission & Conditions
 
-This software is free and open-source. You are permitted to use, study, modify, and distribute this software, including in commercial or academic contexts, only if all of the following conditions are met:
+This software is free and open-source. You are permitted to use, study, modify, and 
+distribute this software, including in commercial or academic contexts, only if all 
+of the following conditions are met:
 
 a) Attribution
 
-Any project, derivative work, tool, binary, compiler, interpreter, or runtime created from this software must provide clear credit to the original author.
-A required attribution notice must be included in documentation, build output, or About/Help screens:
+Any project, derivative work, tool, binary, compiler, interpreter, or 
+runtime created from this software must provide clear credit to the 
+original author. A required attribution notice must be included in 
+documentation, build output, or About/Help screens:
 
 Based on "Simple Computations" by Aman Kalbiat
 Repository: https://github.com/aqalbiat/simple-computations
@@ -16,7 +20,10 @@ Contact: qalbiataman@gmail.com
 
 b) Copyleft (No Proprietary Forks)
 
-All modified versions, forks, improvements, and derivative works must remain open source and be licensed under this same license or another GPL-compatible copyleft license.
+All modified versions, forks, improvements, and derivative works must 
+remain open source and be licensed under this same license or another 
+GPL-compatible copyleft license.
+
 You may not:
 
 Make proprietary/closed-source versions
@@ -27,7 +34,9 @@ Re-license under a more restrictive or private license
 
 c) Source Code Availability
 
-If you distribute a modified version or a compiled binary, you must also provide access to the full corresponding source code without charge.
+If you distribute a modified version or a compiled binary, 
+you must also provide access to the full corresponding 
+source code without charge.
 
 2. Redistribution Requirements
 
@@ -41,7 +50,8 @@ Your distribution clearly states where modifications were made (if any)
 
 3. Commercial Use
 
-Commercial use is allowed if and only if all conditions above are fulfilled (attribution + open source + copyleft compliance).
+Commercial use is allowed if and only if all conditions above 
+are fulfilled (attribution + open source + copyleft compliance).
 
 4. No Warranty
 
