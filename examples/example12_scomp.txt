@@ -1,0 +1,16 @@
+
+job gcd(make x(integer), make y(integer)) (integer) start
+
+finish
+
+job phi(make r(integer)) (integer) start
+
+finish
+
+job binpow(make base(integer), make pw(integer), make M(integer)) (integer) start
+
+finish
+
+job main() start
+
+finish
