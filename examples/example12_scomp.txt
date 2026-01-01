@@ -58,6 +58,7 @@ job main() start
 
     if (not(eq(call(gcd, a, m), 1))) start
         serve("Impossible");
+        exit(0);
     finish
 
     make res(integer) = call(binpow, a, sub(call(phi, m), 1), m);
