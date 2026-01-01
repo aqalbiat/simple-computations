@@ -57,7 +57,7 @@ job main() start
 
     make u(complex) = mul_compl(v1, v2);
 
-    make area(real(10)) = div(get(u, Im), 2.0);
+    make area(real(10)) = div(call(absolute_value, get(u, Im)), 2.0);
 
     serve(area);
 

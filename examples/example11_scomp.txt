@@ -1,0 +1,144 @@
+
+create Matr2by2 start
+
+    make elem(array(array(real(30), 2), 2));
+
+finish
+
+create Matr3by3 start
+
+    make elem(array(array(real(30), 3), 3));
+
+finish
+
+job Submatr2by2(make A(Matr3by3), make row(integer), make col(integer)) (Matr2by2) start
+    
+    make res(Matr2by2);
+    make take(array(real(30), 4));
+    make ptr(integer) = 0;
+
+    make i(integer) = 0;
+    loop(lt(i, 4)) start
+        make j(integer) = 0;
+        loop(lt(j, 4)) start
+            if (and(not(eq(i, row)), not(eq(j, col)))) start
+                at(take, ptr) = at(at(get(res, elem), i), j);
+                ptr = add(ptr, 1);
+            finish
+            j = add(j, 1);
+        finish
+        i = add(i, 1);
+    finish
+
+    at(at(get(res, elem), 0), 0) = at(take, 0);
+    at(at(get(res, elem), 0), 1) = at(take, 1);
+    at(at(get(res, elem), 1), 0) = at(take, 2);
+    at(at(get(res, elem), 1), 1) = at(take, 3);
+
+    return res;
+
+finish
+
+job DetMatr2by2(make A(Matr2by2)) (real(30)) start
+
+    make r1(real(30)) = mul(at(at(get(A, elem), 0), 0), at(at(get(A, elem), 1), 1));
+    make r2(real(30)) = mul(at(at(get(A, elem), 0), 1), at(at(get(A, elem), 1), 0));
+
+    make res(real(30)) = sub(r1, r2);
+
+    return res;
+
+finish
+
+job DetMatr3by3(make A(Matr3by3)) (real(30)) start
+
+    make res(real(30)) = 0;
+
+    make i(integer) = 0;
+    loop(lt(i, 4)) start
+        if (eq(mod(i, 2), 0)) start
+            res = add(res, mul(at(at(get(A, elem), i), 0), call(DetMatr2by2, call(Submatr2by2, A, i, 0))));
+        finish else start
+            res = sub(res, mul(at(at(get(A, elem), i), 0), call(DetMatr2by2, call(Submatr2by2, A, i, 0))));
+        finish
+        i = add(i, 1);
+    finish
+
+    return res;
+
+finish
+
+job subvec(make A(array(real(30), 3)), make B(array(real(30), 3))) (array(real(30), 3)) start
+
+    make res(array(real(30), 3));
+
+    make i(integer) = 0;
+    loop(lt(i, 4)) start
+        at(res, i) = sub(at(A, i), at(B, i));
+    finish
+
+    return res;
+
+finish
+
+job absolute_value(make nbr(real(30))) (real(30)) start
+
+    if (eq(nbr, 0.0)) start
+        return 0.0;
+    finish
+
+    if (gt(nbr, 0.0)) start
+        return nbr;
+    finish
+
+    make res(real(30)) = sub(0.0, nbr);
+
+    return res;
+
+finish
+
+job main() start
+
+    make A(array(real(30), 3)), B(array(real(30), 3)), C(array(real(30), 3)), D(array(real(30), 3));
+
+    make i(integer);
+
+    i = 0;
+    loop(lt(i, 4)) start
+        listen(at(A, i));
+        i = add(i, 1);
+    finish
+
+    i = 0;
+    loop(lt(i, 4)) start
+        listen(at(B, i));
+        i = add(i, 1);
+    finish
+
+    i = 0;
+    loop(lt(i, 4)) start
+        listen(at(C, i));
+        i = add(i, 1);
+    finish
+
+    i = 0;
+    loop(lt(i, 4)) start
+        listen(at(D, i));
+        i = add(i, 1);
+    finish
+
+    make v1(array(real(30), 3)) = call(subvec, B, A);
+    make v2(array(real(30), 3)) = call(subvec, C, A);
+    make v3(array(real(30), 3)) = call(subvec, D, A);
+
+    make M(Matr3by3);
+
+    at(get(M, elem), 0) = v1;
+    at(get(M, elem), 1) = v2;
+    at(get(M, elem), 2) = v3;
+
+    make volume(real(30)) = call(absolute_value, call(DetMatr3by3, M));
+
+    serve(volume);
+
+finish
