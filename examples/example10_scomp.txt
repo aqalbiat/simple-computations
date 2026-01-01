@@ -1,0 +1,158 @@
+
+create Matr3by3 start
+
+    make elem(array(array(real(30), 3), 3));
+
+finish
+
+job MatrixUnit() (Matr3by3) start
+
+    make res(Matr3by3);
+
+    make i(integer) = 0;
+    loop (lt(i, 4)) start
+        make j(integer) = 0;
+        loop (lt(j, 4)) start
+            if (eq(i, j)) start
+                at(at(get(res, elem), i), j) = 1;
+            finish else start
+                at(at(get(res, elem), i), j) = 0;
+            finish
+            j = add(j, 1);
+        finish
+        i = add(i, 1);
+    finish
+
+    return res;
+
+finish
+
+job OxRotate(make alpha(real(30))) (Matr3by3) start 
+
+    make res(Matr3by3) = call(MatrixUnit);
+
+    make p1(integer) = 1;
+    make p2(integer) = 2;
+
+    at(at(get(res, elem), p1), p1) = cos(alpha);
+
+    at(at(get(res, elem), p2), p2) = cos(alpha);
+
+    at(at(get(res, elem), p1), p2) = sub(0.0, sin(alpha));
+
+    at(at(get(res, elem), p2), p1) = sin(alpha);
+
+    return res;
+
+finish
+
+job OyRotate(make alpha(real(30))) (Matr3by3) start
+
+    make res(Matr3by3) = call(MatrixUnit);
+
+    make p1(integer) = 0;
+    make p2(integer) = 2;
+
+    at(at(get(res, elem), p1), p1) = cos(alpha);
+
+    at(at(get(res, elem), p2), p2) = cos(alpha);
+
+    at(at(get(res, elem), p1), p2) = sub(0.0, sin(alpha));
+
+    at(at(get(res, elem), p2), p1) = sin(alpha);
+
+    return res;
+
+
+finish
+
+job OzRotate(make alpha(real(30))) (Matr3by3) start
+
+    make res(Matr3by3) = call(MatrixUnit);
+
+    make p1(integer) = 0;
+    make p2(integer) = 1;
+
+    at(at(get(res, elem), p1), p1) = cos(alpha);
+
+    at(at(get(res, elem), p2), p2) = cos(alpha);
+
+    at(at(get(res, elem), p1), p2) = sub(0.0, sin(alpha));
+
+    at(at(get(res, elem), p2), p1) = sin(alpha);
+
+    return res;
+
+finish
+
+job mul_vectr_by_matr(make M(Matr3by3), make x(array(real(30), 3))) (array(real(30), 3)) start
+
+    make res(array(real(30), 3));
+
+    make i(integer) = 0;
+    loop(lt(i, 4)) start
+        make j(integer) = 0;
+        at(res, i) = 0;
+        loop (lt(j, 4)) start
+            at(res, i) = add(at(res, i), mul(at(at(get(M, elem), i), j), at(x, j)));
+            j = add(j, 1);
+        finish
+        i = add(i, 1);
+    finish
+
+    return res;
+
+finish
+
+jop mul_matr3by3 (make A(Matr3by3), make B(Matr3by3)) (Matr3by3) start
+
+    make res(Matr3by3);
+
+    make i(integer) = 0;
+    loop(lt(i, 4)) start
+        make j(integer) = 0;
+        loop(lt(j, 4)) start
+            at(at(get(res, elem), i), j) = 0;
+            make k(integer) = 0;
+            loop(lt(k, 4)) start
+                make arg1(real(30)) = at(at(get(A, elem), i), k);
+                make arg2(real(30)) = at(at(get(B, elem), k), j);
+                at(at(get(res, elem), i), j) = add(at(at(get(res, elem), i), j), mul(arg1, arg2));
+                k = add(k, 1);
+            finish
+            j = add(j, 1);
+        finish
+        i = add(i, 1);
+    finish
+
+    return res;
+
+finish
+
+job main() start
+
+    make vec(array(real(30)));
+
+    make iter(integer) = 0;
+    loop(lt(iter, 4)) start
+        listen(at(vec, iter));
+        iter = add(iter, 1);
+    finish
+
+    make alpha(real(30)), beta(real(30)), theta(real(30));
+    listen(alpha, beta, theta);
+
+    make rotX(Matr3by3) = call(OxRotate, alpha);
+    make rotY(Matr3by3) = call(OyRotate, beta);
+    make rotZ(Matr3by3) = call(OzRotate, theta);
+
+    make rotAll(Matr3by3) = call(MatrixUnit);
+    rotAll = call(mul_matr3by3, rotAll, rotX);
+    rotAll = call(mul_matr3by3, rotAll, rotY);
+    rotAll = call(mul_matr3by3, rotAll, rotZ);
+
+    make result(array(real(30))) = call(mul_vectr_by_matr, rotAll, vec);
+
+    serve(at(result, 0), at(result, 1), at(result, 2));
+
+finish
