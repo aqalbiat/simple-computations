@@ -1,0 +1,66 @@
+
+make maxn(integer) = 5009;
+make a(array(integer, maxn)), b(array(integer, maxn)), dp(array(array(integer, maxn), maxn));
+make n(integer), m(integer);
+
+job maxval(make x(integer), make y(integer)) (integer) start
+    if (gt(x, y)) start
+        return x;
+    end
+    return y;
+finish
+
+job main() start
+
+    listen(n);
+
+    make i(integer) = 1;
+    loop(or(lt(i, n), eq(i, n))) start
+        listen(at(a, i));
+        i = add(i, 1);
+    finish
+
+    make j(integer) = 1;
+    loop(or(lt(j, m), eq(j, m))) start
+        listen(at(b, j));
+        j = add(j, 1);
+    finish
+
+    i = 0;
+    loop(lt(i, maxn)) start
+        j = 0;
+        loop(lt(j, maxn)) start
+            at(at(dp, i), j) = 0;
+            j = add(j, 1);
+        finish
+        i = add(i, 1);
+    finish
+
+    i = 1;
+    loop(or(lt(i, n), eq(i, n))) start
+        j = 1;
+        loop(or(lt(j, m), eq(j, m))) start
+            if (eq(at(a, i), at(b, j))) start
+                at(at(dp, i), j) = add(at(at(dp, sub(i, 1)), sub(j, 1)), 1);
+            finish
+            make curr(integer) = call(maxval, at(at(dp, sub(i, 1)), j), at(at(dp, i), sub(j, 1)));
+            at(at(dp, i), j) = call(maxval, at(at(dp, i), j), curr);
+            j = add(j, 1);
+        finish
+        i = add(i, 1);
+    finish
+
+    make ans(integer) = 0;
+    i = 1;
+    for (or(lt(i, n), eq(i, n))) start
+        j = 1;
+        for (or(lt(j, n), eq(j, m))) start
+            ans = call(maxval, ans, at(at(dp, i), j));
+            j = add(j, 1);
+        finish
+        i = add(i, 1);
+    finish
+
+    serve(ans);
+
+finish
