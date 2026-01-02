@@ -1,0 +1,48 @@
+
+make maxn(integer) = add(mul(1000, 1000), 7);
+make M(integer) = add(mul(2000, 10000), 9);
+make H(integer) = div(M, 2);
+make a(array(integer, maxn)), pref(array(integer, maxn)), cnt(array(integer, M));
+make n(integer);
+
+job main() start
+
+    listen(n);
+    
+    make i(integer) = 1;
+    loop(or(lt(i, n), eq(i, n))) start
+        listen(at(a, i));
+        i = add(i, 1);
+    finish
+
+    at(pref, 0) = 0;
+    i = 1;
+    loop(or(lt(i, n), eq(i, n))) start
+        at(pref, i) = add(at(pref, sub(i, 1)), at(a, i));
+        i = add(i, 1);
+    finish
+
+    i = 0;
+    loop(lt(i, M)) start
+        at(cnt, i) = add(n, n);
+        i = add(i, 1);
+    finish
+
+    at(cnt, H) = 0;
+    i = 1;
+    make st(integer) = -1;
+    make len(integer) = -1;
+    loop(or(lt(i, n), eq(i, n))) start
+        make curr(integer) = sub(at(pref, i), i);
+        make pos(integer) = sub(curr, H);
+        if (and(gt(pos, -1), lt(pos, M), lt(at(cnt, pos), add(n, n)))) start
+            if (gt(sub(i, at(cnt, pos)), len)) start
+                len = sub(i, at(cnt, pos));
+                st = add(at(cnt, pos), 1);
+            finish
+        finish
+    finish
+
+    serve(st, len);
+
+finish
