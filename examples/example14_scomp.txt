@@ -1,0 +1,49 @@
+
+make maxn(integer) = 3008;
+make a(array(integer, maxn)), dp(array(integer, maxn));
+make n(integer);
+
+job maxval(make x(integer), make y(integer)) (integer) start
+    if (gt(x, y)) start
+        return x;
+    end
+    return y;
+finish
+
+job main() start
+
+    listen(n);
+
+    make i(integer) = 1;
+    loop(or(lt(i, n), eq(i, n))) start
+        listen(at(a, i));
+        i = add(i, 1);
+    finish
+
+    i = 0;
+    loop(lt(i, maxn)) start
+        at(dp, i) = 0;
+        i = add(i, 1);
+    finish
+
+    at(a, 0) = sub(0, add(n, n));
+
+    i = 1;
+    loop(or(lt(i, n), eq(i, n))) start
+        make j(integer) = 0;
+        loop(lt(j, i)) start
+            if (gt(at(a, i), at(a, j))) start
+                at(dp, i) = call(maxval, at(dp, i), add(at(dp, j), 1));
+            finish
+        finish
+    finish
+
+    make ans(integer) = 0;
+    i = 1;
+    loop(or(lt(i, n), eq(i, n))) start
+        ans = call(maxval, ans, at(dp, i));
+    finish
+
+    serve(ans);
+
+finish
