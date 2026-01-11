@@ -1,14 +1,53 @@
 
 make maxn(integer);
-make a(array(integer, maxn)), reserve(array(integer, maxn));
+make a(array(integer, maxn)), rs(array(integer, maxn));
 make len(integer);
 
-job merge_subsequences(make l(integer), make r(integer)) start
-
+job merge_subsequences(make l1(integer), make r1(integer), make l2(integer), make r2(integer)) start
+    make i(integer);
+    i = l1;
+    loop(or(lt(i, r1), eq(i, r1))) start
+        at(rs, i) = at(a, i);
+        i = add(i, 1);
+    finish
+    i = l2;
+    loop(or(lt(i, r2), eq(i, r2))) start
+        at(rs, i) = at(a, i);
+        i = add(i, 1);
+    finish
+    i = l1;
+    make ptr1(integer) = l1;
+    make ptr2(integer) = l2;
+    loop(and(or(eq(ptr1, r1), lt(ptr1, r1)), or(eq(ptr2, r2), lt(ptr2, r2)))) start
+        if (lt(at(rs, ptr1), at(rs, ptr2))) start
+            at(a, i) = at(rs1, ptr1);
+            ptr1 = add(ptr1, 1);
+        finish else start
+            at(a, i) = at(rs2, ptr2);
+            ptr2 = add(ptr2, 1);
+        finish
+        i = add(i, 1);
+    finish
+    loop(or(lt(ptr1, r1), eq(ptr1, r1))) start
+        at(a, i) = at(rs1, ptr1);
+        ptr1 = add(ptr1, 1);
+        i = add(i, 1);
+    finish
+    loop(or(lt(ptr2, r2), eq(ptr2, r2))) start
+        at(a, i) = at(rs2, ptr2);
+        ptr2 = add(ptr2, 1);
+        i = add(i, 1);
+    finish
 finish
 
 job merge_sort(make l(integer), make r(integer)) start
-
+    if (or(eq(l, r), gt(l, r))) start finish
+    else start
+        make mid(integer) = div(add(l, r), 2);
+        call(merge_sort, l, mid);
+        call(merge_sort, add(mid, 1), r);
+        call(merge_subsequences, l, mid, add(mid, 1), r);
+    finish
 finish
 
 job main() start
