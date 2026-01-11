@@ -1,0 +1,34 @@
+
+make maxn(integer);
+make a(array(integer, maxn)), reserve(array(integer, maxn));
+make len(integer);
+
+job merge_subsequences(make l(integer), make r(integer)) start
+
+finish
+
+job merge_sort(make l(integer), make r(integer)) start
+
+finish
+
+job main() start
+
+    make i(integer);
+    listen(len);
+
+    i = 1;
+    loop(or(lt(i, len), eq(i, len))) start
+        listen(at(a, i));
+        i = add(i, 1);
+    finish
+
+    call(merge_sort, 1, len);
+
+    i = 1;
+    loop(or(lt(i, len), eq(i, len))) start
+        serve(at(a, i));
+        i = add(i, 1);
+    finish
+
+finish
+
