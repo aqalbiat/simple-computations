@@ -18,7 +18,7 @@
 
 2. Grammar:              ![](https://geps.dev/progress/0)
 
-3. Tokenizer:            ![](https://geps.dev/progress/0)
+3. Tokenizer:            ![](https://geps.dev/progress/5)
 
 4. Parser:               ![](https://geps.dev/progress/0)
 
