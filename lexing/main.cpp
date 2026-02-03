@@ -36,16 +36,18 @@ void init_tests() {
 
 void RunTests(Edge e) {
     for (auto curr : test1) {
-        cout << "Testing + " << curr << "; result = ";
+        cout << "Testing -> " << curr << "; result = ";
         cout << e.check_edge(curr) << "\n";
     }
     for (auto curr : test2) {
-        cout << "Testing + " << curr << "; result = ";
+        cout << "Testing -> " << curr << "; result = ";
         cout << e.check_edge(curr) << "\n";
     }
 }
 
 int main() {
+    init_tests();
+    cout << "\n\n ============= Start the tests ============= \n\n";
     Edge e = Edge("hello");
     e.add_exact_match("how");
     e.add_exact_match("are");
@@ -53,6 +55,7 @@ int main() {
     e.add_singleton('j');
     e.add_singleton('z');
     RunTests(e);
+    cout << "\n\n ============= FINISHED ============= \n\n";
     return 0;
 }
 
