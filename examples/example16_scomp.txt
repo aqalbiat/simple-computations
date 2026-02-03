@@ -20,21 +20,21 @@ job merge_subsequences(make l1(integer), make r1(integer), make l2(integer), mak
     make ptr2(integer) = l2;
     loop(and(or(eq(ptr1, r1), lt(ptr1, r1)), or(eq(ptr2, r2), lt(ptr2, r2)))) start
         if (lt(at(rs, ptr1), at(rs, ptr2))) start
-            at(a, i) = at(rs1, ptr1);
+            at(a, i) = at(rs, ptr1);
             ptr1 = add(ptr1, 1);
         finish else start
-            at(a, i) = at(rs2, ptr2);
+            at(a, i) = at(rs, ptr2);
             ptr2 = add(ptr2, 1);
         finish
         i = add(i, 1);
     finish
     loop(or(lt(ptr1, r1), eq(ptr1, r1))) start
-        at(a, i) = at(rs1, ptr1);
+        at(a, i) = at(rs, ptr1);
         ptr1 = add(ptr1, 1);
         i = add(i, 1);
     finish
     loop(or(lt(ptr2, r2), eq(ptr2, r2))) start
-        at(a, i) = at(rs2, ptr2);
+        at(a, i) = at(rs, ptr2);
         ptr2 = add(ptr2, 1);
         i = add(i, 1);
     finish
