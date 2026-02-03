@@ -1,0 +1,33 @@
+
+make maxn(integer) = add(mul(100, 2000), 39);
+make g(array(vector(integer), maxn));
+make n(integer);
+make m(integer);
+make d(array(integer, maxn));
+
+job bfs(make v(integer)) start
+
+finish
+
+job main() start
+
+    listen(n, m);
+
+    make i(integer) = 1;
+    loop(or(lt(i, m), eq(i, m))) start
+        make u(integer);
+        make v(integer);
+        listen(u, v);
+        append(at(g, u), v);
+        append(at(g, v), u);
+        i = add(i, 1);
+    finish
+
+    call(bfs, 1);
+
+    i = 1;
+    loop(or(lt(i, n), eq(i, n))) start
+        serve(at(d, i));
+    finish
+
+finish

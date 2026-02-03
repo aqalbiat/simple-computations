@@ -1,5 +1,5 @@
 
-make maxn(integer);
+make maxn(integer) = add(mul(100, 2000), 39);
 make a(array(integer, maxn)), rs(array(integer, maxn));
 make len(integer);
 
