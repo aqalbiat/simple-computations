@@ -1,0 +1,13 @@
+
+job main() start
+
+    make s(string);
+    listen(s);
+
+    make i(integer) = 0;
+    loop(lt(i, size(s))) start
+        serve(at(s, i));
+        i = add(i, 1);
+    finish
+
+finish
