@@ -1,0 +1,30 @@
+
+job get_substring(make s(string), make l(integer), make r(integer)) (string) start
+
+    make res(string);
+
+    make i(integer) = l;
+    loop(or(lt(i, r), eq(i, r))) start
+        append(res, at(s, i));
+        i = add(i, 1);
+    finish
+
+    return res;
+
+finish
+
+job main() start
+
+    make t(string);
+    make p(string);
+    listen(t, p);
+
+    make i(integer) = 0;
+    loop(lt(sub(add(i, size(p)), 1), size(t))) start
+        make to(integer) = sub(add(i, size(p)), 1);
+        if (eq(call(get_substring, i, to), p)) start
+            serve(i);
+        finish
+    finish
+
+finish
