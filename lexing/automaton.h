@@ -37,7 +37,7 @@ struct Automaton {
 
         string current_w;
         int DFS(int pos) {
-
+            return 0;
         }
 
         bool run_DFS(string init_w) {
