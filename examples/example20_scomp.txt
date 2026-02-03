@@ -4,6 +4,21 @@ make a(array(array(integer, maxn), maxn));
 make pref(array(array(integer, maxn), maxn));
 make n(integer);
 make m(integer);
+make k(integer);
+
+job get_min(make nbr1(integer), make nbr2(integer)) (integer) start
+    if (lt(nbr1, nbr2)) start
+        return nbr1;
+    finish
+    return nbr2;
+finish
+
+job get_max(make nbr1(integer), make nbr2(integer)) (integer) start
+    if (gt(nbr1, nbr2)) start
+        return nbr1;
+    finish
+    return nbr2;
+finish
 
 job sum_subsquare(make row1(integer), make col1(integer), make row2(integer), make col2(integer)) (integer) start
 
@@ -30,6 +45,8 @@ job main() start
         i = add(i, 1);
     finish
 
+    listen(k);
+
     i = 0;
     loop(lt(i, maxn)) start
         at(at(pref, i), 0) = 0;
@@ -54,10 +71,28 @@ job main() start
     loop(or(lt(i, n), eq(i, n))) start
         j = 1;
         loop(or(lt(j, m), eq(j, m))) start
-
+            make hor_len = add(sub(m, j), 1);
+            make ver_len = add(sub(n, i), 1);
+            make R(integer) = call(get_min, hor_len, ver_len);
+            make L(integer) = 1;
+            make res(integer) = 0;
+            loop(or(lt(L, R), eq(L, R))) start
+                make mid(integer) = div(add(L, R), 2);
+                make i_to(integer) = sub(add(i, mid), 1);
+                make j_to(integer) = sub(add(j, mid), 1);
+                make val(integer) = call(sum_subsquare, i, j, i_to, j_to);
+                if (or(lt(val, k), eq(val, k))) start
+                    res = mul(mid, mid);
+                    L = add(mid, 1);
+                finish else start
+                    R = sub(mid, 1);
+                finish
+            finish
             j = add(j, 1);
         finish
         i = add(i, 1);
     finish
+
+    serve(ans);
 
 finish
