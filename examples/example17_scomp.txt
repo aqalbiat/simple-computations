@@ -6,6 +6,29 @@ make m(integer);
 make d(array(integer, maxn));
 
 job bfs(make v(integer)) start
+    
+    make i(integer) = 0;
+    make L(integer) = add(n, 3);
+    loop(lt(i, L)) start
+        at(d, i) = add(mul(3, n), 7);
+        i = add(i, 1);
+    finish
+
+    make q(list(integer));
+    loop(gt(size(q), 0)) start
+        make curr(integer) = front(q);
+        pop_front(q);
+        make j(integer) = 0;
+        loop(lt(j, size(q))) start
+            make to(integer) = at(at(g, curr), j);
+            if (lt(add(at(d, curr), 1), at(d, to))) start
+                at(d, to) = add(at(d, curr), 1);
+                put_last(q, to);
+            finish
+            j = add(j, 1);
+        finish
+    finish
+
 
 finish
 
