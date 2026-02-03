@@ -1,0 +1,63 @@
+
+make maxn(integer) = 3007;
+make a(array(array(integer, maxn), maxn));
+make pref(array(array(integer, maxn), maxn));
+make n(integer);
+make m(integer);
+
+job sum_subsquare(make row1(integer), make col1(integer), make row2(integer), make col2(integer)) (integer) start
+
+    make res(integer) = 0;
+
+    res = sub(sub(at(at(pref, row2), col2), at(at(pref, row2), sub(col1, 1))), at(at(pref, sub(row1, 1)), col2));
+    res = add(res, at(at(pref, sub(row1, 1)), sub(col1, 1)));
+
+    return res;
+
+finish
+
+job main() start
+
+    listen(n, m);
+
+    make i(integer) = 1;
+    loop(or(lt(i, n), eq(i, n))) start
+        make j(integer) = 1;
+        loop(or(lt(j, m), eq(j, m))) start
+            listen(at(at(a, i), j));
+            j = add(j, 1);
+        finish
+        i = add(i, 1);
+    finish
+
+    i = 0;
+    loop(lt(i, maxn)) start
+        at(at(pref, i), 0) = 0;
+        at(at(pref, 0), i) = 0;
+        i = add(i, 1);
+    finish    
+
+    i = 1;
+    loop(or(lt(i, n), eq(i, n))) start
+        j = 1;
+        loop(or(lt(j, m), eq(j, m))) start
+            at(at(pref, i), j) = add(at(at(pref, sub(i, 1)), j), at(at(pref, i), sub(j, 1)), at(at(a, i), j));
+            at(at(pref, i), j) = sub(at(at(pref, i), j), at(at(pref, sub(i, 1)), sub(j, 1)));
+            j = add(j, 1);
+        finish
+        i = add(i, 1);
+    finish
+
+    make ans(integer) = 0;
+
+    i = 1;
+    loop(or(lt(i, n), eq(i, n))) start
+        j = 1;
+        loop(or(lt(j, m), eq(j, m))) start
+
+            j = add(j, 1);
+        finish
+        i = add(i, 1);
+    finish
+
+finish
