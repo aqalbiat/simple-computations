@@ -21,9 +21,9 @@ struct Clause {
             this->clause_single = single;
         }
 
-        Clause(pair <char, char> rng) {
+        Clause(char lo, char hi) {
             this->clause_type = CLAUSE_RANGE;
-            this->clause_rng = rng;
+            this->clause_rng = make_pair(lo, hi);
         }
 
         Clause(string w) {

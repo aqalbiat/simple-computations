@@ -48,12 +48,12 @@ void RunTests(Edge e) {
 int main() {
     init_tests();
     cout << "\n\n ============= Start the tests ============= \n\n";
-    Edge e = Edge("hello");
-    e.add_exact_match("how");
-    e.add_exact_match("are");
-    e.add_range('a', 'e');
-    e.add_singleton('j');
-    e.add_singleton('z');
+    Edge e = Edge(Clause("hello"));
+    e.add_clause(Clause("how"));
+    e.add_clause(Clause("are"));
+    e.add_clause(Clause('a', 'e'));
+    e.add_clause(Clause('j'));
+    e.add_clause(Clause('z'));
     RunTests(e);
     cout << "\n\n ============= FINISHED ============= \n\n";
     return 0;
