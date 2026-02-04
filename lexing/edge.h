@@ -1,6 +1,8 @@
 #include <string>
 #include <algorithm>
 
+#include "clause.h"
+
 using namespace std;
 
 struct Edge {
