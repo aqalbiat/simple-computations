@@ -36,14 +36,39 @@ struct Automaton {
         vector <bool> terminals;
 
         string current_w;
-        int DFS(int pos) {
-            return 0;
+        vector <int> DFS(int v, int pos) {
+            vector <int> curr_list;
+            if (pos >= current_w.size()) {
+                curr_list.push_back(v);
+            } else {
+                int len = current_w.size() - pos;
+                for (int sz = len; sz >= 1; sz--) {
+                    string curr = current_w.substr(pos, sz);
+                    for (auto e : g[v]) {
+                        auto checker = e.first;
+                        int to = e.second;
+                        if (checker.check_edge(curr)) {
+                            vector <int> children = DFS(to, pos + curr.size());
+                            for (int r_ch : children) {
+                                curr_list.push_back(r_ch);
+                            }
+                        }    
+                    }
+                }
+            }
+            return curr_list;
         }
 
         bool run_DFS(string init_w) {
             current_w = init_w;
-            int last = DFS(0);
-            return terminals[last];
+            vector <int> list_last = DFS(1, 0);
+            bool result = false;
+            for (int curr_v : list_last) {
+                if (0 < curr_v && curr_v < terminals.size()) {
+                    result |= terminals[curr_v];
+                }
+            }
+            return result;
         }
 
 };
