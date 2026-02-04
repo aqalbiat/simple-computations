@@ -38,7 +38,7 @@ struct Automaton {
         string current_w;
         vector <int> DFS(int v, int pos) {
             vector <int> curr_list;
-            if (pos >= current_w.size()) {
+            if ((size_t)(pos) >= current_w.size()) {
                 curr_list.push_back(v);
             } else {
                 int len = current_w.size() - pos;
@@ -64,7 +64,7 @@ struct Automaton {
             vector <int> list_last = DFS(1, 0);
             bool result = false;
             for (int curr_v : list_last) {
-                if (0 < curr_v && curr_v < terminals.size()) {
+                if (0 < curr_v && (size_t)(curr_v) < terminals.size()) {
                     result |= terminals[curr_v];
                 }
             }

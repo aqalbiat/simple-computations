@@ -70,9 +70,7 @@ void RunTests(Edge e, int mask) {
     cout << "Number of successful runs: " << ok_count << "/" << test1.size() + test2.size() << "\n";
 }
 
-int main() {
-    init_tests();
-    cout << "\n\n ============= Start the tests ============= \n\n";
+void RunEdgeCheckers() {
     Edge e = Edge(Clause("hello"));
     e.add_clause(Clause("how"));
     e.add_clause(Clause("are"));
@@ -81,6 +79,54 @@ int main() {
     e.add_clause(Clause('z'));
     int curr_mask = build_mask("000111000011000000000011");
     RunTests(e, curr_mask);
+}
+
+void RunAutomatonCheckers() {
+    cout << "Automaton test\n";
+    Automaton ident = Automaton(3);
+    Edge e1 = Edge(Clause('a', 'z'));
+    e1.add_clause(Clause('A', 'Z'));
+    e1.add_clause(Clause('_'));
+    Edge e2 = Edge(Clause('a', 'z'));
+    e2.add_clause(Clause('A', 'Z'));
+    e2.add_clause(Clause('0', '9'));
+    e2.add_clause(Clause('_'));
+    Edge e3 = Edge(Clause('a', 'z'));
+    e3.add_clause(Clause('A', 'Z'));
+    e3.add_clause(Clause('0', '9'));
+    e3.add_clause(Clause('_'));
+    ident.add_edge(1, 2, e1);
+    ident.add_edge(2, 3, e2);
+    ident.add_edge(3, 2, e3);
+    ident.select_finish(2);
+    ident.select_finish(3);
+    vector <string> test_ident;
+    test_ident.push_back("_0012gh3");
+    test_ident.push_back("lok0023_");
+    test_ident.push_back("ppoi09");
+    test_ident.push_back("%##430");
+    test_ident.push_back("009ssd");
+    test_ident.push_back("--++====");
+    test_ident.push_back("x+y=g+h");
+    test_ident.push_back("x+34=y");
+    test_ident.push_back("ggjkhd+rty");
+    test_ident.push_back("99+34=ty");
+    test_ident.push_back("r");
+    test_ident.push_back("l");
+    test_ident.push_back("0");
+    test_ident.push_back("7");
+    test_ident.push_back("_");
+    for (string curr : test_ident) {
+        cout << "Try test -> " << curr << ": ";
+        cout << ident.check_input(curr) << "\n";
+    }
+}
+
+int main() {
+    init_tests();
+    cout << "\n\n ============= Start the tests ============= \n\n";
+    RunEdgeCheckers();
+    RunAutomatonCheckers();
     cout << "\n\n ============= FINISHED ============= \n\n";
     return 0;
 }
