@@ -1,0 +1,48 @@
+
+make(integer) maxn = add(mul(200, 1000), 45);
+make(integer) n;
+make(array(integer, maxn)) a;
+
+job heapify_down(make pos(integer)) start
+
+    loop(or(lt(pos, n), eq(pos, n))) start
+        make l(integer) = sub(mul(2, pos), 1);
+        make r(integer) = mul(2, pos);
+        make sub1_cl1(boolean) = or(lt(at(a, l), at(a, pos)), eq(at(a, l), at(a, pos)));
+        make sub2_cl1(boolean) = or(lt(at(a, l), at(a, r)), eq(at(a, l), at(a, r))); 
+        make cl1(boolean) = and(sub1_cl1, sub2_cl1);
+        make sub1_cl2(boolean) = or(lt(at(a, r), at(a, pos)), eq(at(a, r), at(a, pos)));
+        make sub2_cl2(boolean) = or(lt(at(a, r), at(a, l)), eq(at(a, r), at(a, l)));
+        make cl2(boolean) = and(sub1_cl2, sub2_cl2);
+        if (cl1) start
+            make tmp(integer) = at(a, pos);
+            at(a, pos) = at(a, l);
+            at(a, l) = tmp;
+            pos = l;
+        finish else if (cl2) start
+            make tmp(integer) = at(a, pos);
+            at(a, pos) = at(a, r);
+            at(a, r) = tmp;
+            pos = r;
+        finish else start
+            break;
+        finish
+    finish
+
+finish
+
+job heapify_up(make pos(integer)) start
+
+finish
+
+job main() start
+
+    listen(n);
+    make i(integer) = 1;
+    loop(or(lt(i, n), eq(i, n))) start
+        listen(at(a, i));
+    finish
+
+
+
+finish
