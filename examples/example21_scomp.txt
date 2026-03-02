@@ -31,7 +31,24 @@ job heapify_down(make pos(integer)) start
 
 finish
 
-job heapify_up(make pos(integer)) start
+job heapify_up(make pos(integer)) (integer) start
+
+    loop(gt(pos, 1)) start
+
+        make parent(integer) = div(pos, 2);
+
+        if (lt(at(a, pos), at(a, parent))) start
+            make tmp(integer) = at(a, pos);
+            at(a, pos) = at(a, parent);
+            at(a, parent) = tmp;
+            pos = parent;
+        finish else start
+            break;
+        finish
+
+    finish
+
+    return pos; 
 
 finish
 
@@ -41,8 +58,21 @@ job main() start
     make i(integer) = 1;
     loop(or(lt(i, n), eq(i, n))) start
         listen(at(a, i));
+        i = add(i, 1);
     finish
 
+    make half(integer) = div(add(n, 1), 2);
+    i = half;
+    loop(or(gt(i, 1), eq(i, 1))) start
+        make mx_pos(integer) = call(heapify_up, i);
+        call(heapify_down, mx_pos);
+        i = sub(i, 1);
+    finish
 
+    i = 1;
+    loop (or(lt(i, n), eq(i, n))) start
+        serve(at(a, i));
+        i = add(i, 1);
+    finish
 
 finish
