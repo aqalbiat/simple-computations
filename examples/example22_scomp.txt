@@ -11,15 +11,38 @@ job min(make x(integer), make y(integer)) start
 finish
 
 job build(make v(integer), make tl(integer), make tr(integer)) start
-
+    if (eq(tl, tr)) start
+        at(t, v) = at(a, tl);
+        return;
+    finish
+    make tm(integer) = div(add(tl, tr), 2);
+    call(build, mul(2, v), tl, tm);
+    call(build, add(mul(2, v), 1), add(tm, 1), tr);
+    at(t, v) = call(min, at(t, mul(2, v)), at(t, add(mul(2, v), 1)));
 finish
 
 job pull_down(make v(integer), make tl(integer), make tr(integer)) start
-
+    if (or(gt(tl, tr), eq(tl, tr))) start
+        return;
+    finish
+    at(dt, mul(2, v)) = at(dt, v);
+    at(dt, add(mul(2, v), 1)) = at(dt, v);
+    at(t, mul(2, v)) = at(dt, v);
+    at(t, add(mul(2, v), 1)) = at(dt, v);
+    at(dt, v) = -1;
 finish
 
 job update(make v(integer), make tl(integer), make tr(integer), make l(integer), make r(integer), make x(integer)) start
-
+    call(pull_down, v, tl, tr);
+    if (and(or(lt(l, tl), eq(l, tl)), or(lt(tr, r), eq(tr, r)))) start
+        at(dt, v) = x;
+        at(t, v) = x;
+        return;
+    finish
+    make tm(integer) = div(add(tl, tr), 2);
+    call(update, mul(v, 2), tl, tm, l, r, x);
+    call(update, add(mul(v, 2), 1), add(tm, 1), tr, l, r, x);
+    at(t, v) = call(min, at(t, mul(2, v)), at(t, add(mul(2, v), 1)));
 finish
 
 job get_min(make v(integer), make tl(integer), make tr(integer), make l(integer), make r(integer)) start
