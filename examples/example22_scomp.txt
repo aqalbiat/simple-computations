@@ -1,0 +1,59 @@
+
+make maxn(integer) = add(mul(200, 1000), 55);
+make maxt(integer) = mul(maxn, 4);
+make n(integer), a(array(integer, maxn)), t(array(integer, maxt)), dt(array(integer, maxt));
+
+job min(make x(integer), make y(integer)) start
+    if (lt(x, y)) start
+        return x;
+    finish
+    return y;
+finish
+
+job build(make v(integer), make tl(integer), make tr(integer)) start
+
+finish
+
+job pull_down(make v(integer), make tl(integer), make tr(integer)) start
+
+finish
+
+job update(make v(integer), make tl(integer), make tr(integer), make l(integer), make r(integer), make x(integer)) start
+
+finish
+
+job get_min(make v(integer), make tl(integer), make tr(integer), make l(integer), make r(integer)) start
+
+finish
+
+job main() start
+
+    listen(n);
+    make i(integer) = 1;
+    loop(or(lt(i, n), eq(i, n))) start
+        listen(at(a, i));
+    finish
+
+    call(build, 1, 1, n);
+
+    make q(integer);
+    listen(q);
+    i = 1;
+    loop(or(lt(i, n), eq(i, n))) start
+        make type(integer);
+        listen(type);
+        if (eq(type, 1)) start
+            make l(integer), r(integer), x(integer);
+            listen(l, r, x);
+            call(update, 1, 1, n, l, r, x);
+        finish else if (eq(type, 2)) start
+            make l(integer), r(integer), ans(integer);
+            listen(l, r);
+            ans = call(get_min, 1, 1, n, l, r);
+            serve(ans);
+        finish else start
+            serve("No such operation");
+        finish
+    finish
+
+finish
