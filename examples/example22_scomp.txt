@@ -22,7 +22,7 @@ job build(make v(integer), make tl(integer), make tr(integer)) start
 finish
 
 job pull_down(make v(integer), make tl(integer), make tr(integer)) start
-    if (or(gt(tl, tr), eq(tl, tr))) start
+    if (or(or(gt(tl, tr), eq(tl, tr)), eq(at(dt, v), 1))) start
         return;
     finish
     at(dt, mul(2, v)) = at(dt, v);
@@ -46,10 +46,31 @@ job update(make v(integer), make tl(integer), make tr(integer), make l(integer),
 finish
 
 job get_min(make v(integer), make tl(integer), make tr(integer), make l(integer), make r(integer)) start
+    call(pull_down, v, tl, tr);
+    if (and(or(lt(l, tl), eq(l, tl)), or(lt(tr, r), eq(tr, r)))) start
+        return at(t, v);
+    finish
+    make tm(integer) = div(add(tl, tr), 2);
+    make ansL(integer) = call(get_min, mul(v, 2), tl, tm, l, r);
+    make ansR(integer) = call(get_min, add(mul(v, 2), 1), add(tm, 1), tr, l, r);
+    return call(min, ansL, ansR);
+finish
+
+make INF(integer) = add(mul(9000, mul(1000, 1000)), 33789);
+job init_tree() start
+
+    make it(integer) = 0;
+    loop(lt(it, maxt)) start
+        at(t, it) = INF;
+        at(dt, it) = -1;
+        it = add(it, 1);
+    finish
 
 finish
 
 job main() start
+
+    call(init_tree);
 
     listen(n);
     make i(integer) = 1;
