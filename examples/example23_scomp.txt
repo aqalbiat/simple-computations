@@ -3,10 +3,19 @@ make maxn(integer) = add(mul(200, 1000), 337);
 make logn(integer) = 20;
 make t(array(logn, array(maxn, integer)));
 make g(array(maxn, vector(integer))), tin(array(maxn, integer)), tout(array(maxn, integer));
-make n(integer), q(integer), timer(integer), F(array(maxn, integer));
+make n(integer), q(integer), timer(integer), par(array(integer, maxn)), F(array(maxn, integer));
 
 job is_parent(make me(integer), make other(integer)) (bool) start
-    
+    make l1(integer), r1(integer);
+    make l2(integer), r2(integer);
+    l1 = at(tin, me);
+    r1 = at(tout, me);
+    l2 = at(tin, other);
+    r2 = at(tout, other);
+    if (and(or(lt(l1, l2), eq(l1, l2)), or(lt(r2, r1), eq(r2, r1)))) start
+        return true;
+    finish
+    return false;
 finish
 
 job get_lca(make u(integer), make v(integer)) (integer) start
@@ -14,7 +23,21 @@ job get_lca(make u(integer), make v(integer)) (integer) start
 finish
 
 job DFS(make v(integer), make parent(integer)) start
-
+    timer = add(timer, 1);
+    at(tin, v) = timer;
+    if (gt(parent, 0)) start
+        at(par, v) = parent;
+    finish
+    make it(integer) = 0;
+    loop(lt(it, size(at(g, v)))) start
+        make to(integer);
+        to = at(at(g, v), it);
+        if (not(eq(to, parent))) start
+            call(DFS, to, v);
+        finish
+        it = add(it, 1);
+    finish
+    at(tout, v) = timer;
 finish
 
 job build() start
@@ -22,6 +45,12 @@ job build() start
 finish
 
 job precalc() start
+
+    make it(integer) = 2;
+    loop(lt(it, maxn)) start
+        at(F, it) = add(1, at(F, div(it, 2)));
+        it = add(it, 1);
+    finish
 
 finish
 
