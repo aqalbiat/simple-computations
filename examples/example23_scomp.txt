@@ -1,7 +1,7 @@
 
 make maxn(integer) = add(mul(200, 1000), 337);
 make logn(integer) = 20;
-make t(array(logn, array(maxn, integer)));
+make t(array(maxn, array(logn, integer)));
 make g(array(maxn, vector(integer))), tin(array(maxn, integer)), tout(array(maxn, integer));
 make n(integer), q(integer), timer(integer), par(array(integer, maxn)), F(array(maxn, integer));
 
@@ -19,7 +19,21 @@ job is_parent(make me(integer), make other(integer)) (bool) start
 finish
 
 job get_lca(make u(integer), make v(integer)) (integer) start
-
+    if (call(is_parent, u, v)) start
+        return u;
+    finish
+    if (call(is_parent, v, u)) start
+        return v;
+    finish
+    make j(integer) = 19;
+    loop(gt(j, -1)) start
+        make exists_p(bool) = not(eq(at(at(t, u), j), 0)); 
+        if (and(exists_p, not(call(is_parent, at(at(t, u), j), v)))) start
+            u = at(at(t, u), j);
+        finish
+        j = add(j, -1);
+    finish
+    return at(at(t, u), 0);
 finish
 
 job DFS(make v(integer), make parent(integer)) start
@@ -41,6 +55,23 @@ job DFS(make v(integer), make parent(integer)) start
 finish
 
 job build() start
+
+    make it = 1;
+    loop(or(lt(it, n), eq(it, n))) start
+        at(at(t, it), 0) = at(par, it);
+        it = add(it, 1);
+    finish
+
+    it = 1;
+    loop(or(lt(it, at(F, n)), eq(it, at(F, n)))) start
+        make v(integer) = 1;
+        loop(or(lt(v, n), eq(v, n))) start
+            make upper(integer) = at(at(t, v), sub(it, 1));
+            at(at(t, v), it) = at(at(t, upper), sub(it, 1));
+            v = add(v, 1);
+        finish
+        it = add(it, 1);
+    finish
 
 finish
 
