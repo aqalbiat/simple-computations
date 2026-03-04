@@ -1,0 +1,55 @@
+
+make maxn(integer) = add(mul(200, 1000), 337);
+make logn(integer) = 20;
+make t(array(logn, array(maxn, integer)));
+make g(array(maxn, vector(integer))), tin(array(maxn, integer)), tout(array(maxn, integer));
+make n(integer), q(integer), timer(integer), F(array(maxn, integer));
+
+job is_parent(make me(integer), make other(integer)) (bool) start
+    
+finish
+
+job get_lca(make u(integer), make v(integer)) (integer) start
+
+finish
+
+job DFS(make v(integer), make parent(integer)) start
+
+finish
+
+job build() start
+
+finish
+
+job precalc() start
+
+finish
+
+job main() start
+
+    call(precalc);
+
+    listen(n);
+    make i(integer) = 1;
+    loop(lt(i, n)) start
+        make x(integer), y(integer);
+        listen(x, y);
+        append(at(g, x), y);
+        append(at(g, y), x);
+    finish
+
+    call(DFS, 1, -1);
+
+    call(build);
+
+    listen(q);
+    i = 1;
+    loop(or(lt(i, n), eq(i, n))) start
+        make u(integer), v(integer);
+        make ans(integer);
+        ans = call(get_lca, u, v);
+        serve(ans);
+        i = add(i, 1);
+    finish
+
+finish
