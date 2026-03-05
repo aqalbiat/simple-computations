@@ -19,10 +19,10 @@ job Insert(make map(Hashmap), make key(integer), make val(integer)) start
 
 finish
 
-job Exists(make map(Hashmap), make key(integer)) start
+job Exists(make map(Hashmap), make key(integer)) (bool) start
 
 finish
 
-job GetValue(make map(Hashmap), make key(integer)) start
+job GetValue(make map(Hashmap), make key(integer)) (integer) start
 
 finish

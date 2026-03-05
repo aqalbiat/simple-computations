@@ -1,6 +1,31 @@
 
 import("external/hashmap");
 
+make n(integer), m(integer);
+make mp(Hashmap);
+
 job main() start
+
+    mp = call(InitiateHashmap);
+    listen(n);
+    listen(m);
+
+    make it(integer) = 1;
+    loop(or(lt(it, n), eq(it, n))) start
+        make x(integer);
+        listen(x);
+        if (call(Exists, mp, x)) start
+            make count(integer) = call(GetValue, x);
+            count = add(count, 1);
+            call(Insert, x, count);
+        end else start
+            call(Insert, x, 1);
+        finish
+    finish
+
+    it = 1;
+    loop(or(lt(it, m), eq(it, m))) start
+        serve(it, ":", call(GetValue, it));
+    finish
 
 finish
