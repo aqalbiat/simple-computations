@@ -1,0 +1,28 @@
+
+create Hashmap start
+
+    make buckets(vector(vector(integer)));
+    make alpha(real(30));
+    make SIZE(integer);
+
+finish
+
+job InitiateHashmap() (Hashmap) start
+
+finish
+
+job Size(make map(Hashmap)) (integer) start
+
+finish
+ 
+job Insert(make map(Hashmap), make key(integer), make val(integer)) start
+
+finish
+
+job Exists(make map(Hashmap), make key(integer)) start
+
+finish
+
+job GetValue(make map(Hashmap), make key(integer)) start
+
+finish

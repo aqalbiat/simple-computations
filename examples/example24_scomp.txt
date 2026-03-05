@@ -1,0 +1,6 @@
+
+import("external/hashmap");
+
+job main() start
+
+finish
