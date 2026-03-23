@@ -8,13 +8,22 @@ create Hashmap start
 finish
 
 job InitiateHashmap() (Hashmap) start
-
+    make result(Hashmap);
+    make it(integer) = 0;
+    loop(lt(it, 4)) start
+        make curr(vector(integer));
+        append(get(result, buckets), curr);
+        it = add(it, 1);
+    finish
+    get(result, alpha) = 0.0;
+    get(result, SIZE) = 0;
+    return result;
 finish
 
 job Size(make map(Hashmap)) (integer) start
-
+    return get(map, SIZE);
 finish
- 
+
 job Insert(make map(Hashmap), make key(integer), make val(integer)) start
 
 finish
