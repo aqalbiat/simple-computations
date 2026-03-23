@@ -14,7 +14,7 @@
 
 ## Interperter implementation progress bar
 
-1. Examples:             ![](https://geps.dev/progress/94)
+1. Examples:             ![](https://geps.dev/progress/95)
 
 2. Grammar:              ![](https://geps.dev/progress/0)
 
