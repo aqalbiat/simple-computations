@@ -1,7 +1,14 @@
 
+job CalcHash(make key(integer)) (integer) start
+    make mp(integer) = 9128902657;
+    make ml(integer) = 65553;
+    make md(integer) = 3298534884403;
+    return mod(mult(xor(key, mp), ml), md);
+finish
+
 create Hashmap start
 
-    make buckets(vector(vector(integer)));
+    make buckets(vector(vector(pair(integer, integer))));
     make alpha(real(30));
     make SIZE(integer);
 
@@ -25,11 +32,34 @@ job Size(make map(Hashmap)) (integer) start
 finish
 
 job Insert(make map(Hashmap), make key(integer), make val(integer)) start
+    get(map, SIZE) = add(get(map, SIZE), 1);
+    get(map, alpha) = div(get(map, SIZE), len(get(map, buckets)));
+    if (or(lt(get(map, alpha), 3.0), eq(get(map, alpha), 3.0))) start
+        make hash_value(integer) = call(CalcHash, key);
+        make pos(integer) = mod(hash_value, len(get(map, buckets)));
+        make it(integer) = 0;
+        loop(lt(it, len(at(get(map, buckets), pos)))) start
+            if (eq(first(at(at(get(map, buckets), pos), it)), key)) start
+                second(at(at(get(map, buckets), pos), it)) = val;
+            finish
+            it = add(it, 1);
+        finish
+    finish else start
 
+    finish
 finish
 
 job Exists(make map(Hashmap), make key(integer)) (bool) start
-
+    make hash_value(integer) = call(CalcHash, key);
+    make pos(integer) = mod(hash_value, len(get(map, buckets)));
+    make it(integer) = 0;
+    loop(lt(it, len(at(get(map, buckets), pos)))) start
+        if (eq(key, at(at(get(map, buckets), pos), it))) start
+            return true;
+        finish
+        it = add(it, 1);
+    finish
+    return false;
 finish
 
 job GetValue(make map(Hashmap), make key(integer)) (integer) start
