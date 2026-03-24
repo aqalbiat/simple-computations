@@ -34,19 +34,50 @@ finish
 job Insert(make map(Hashmap), make key(integer), make val(integer)) start
     get(map, SIZE) = add(get(map, SIZE), 1);
     get(map, alpha) = div(get(map, SIZE), len(get(map, buckets)));
-    if (or(lt(get(map, alpha), 3.0), eq(get(map, alpha), 3.0))) start
-        make hash_value(integer) = call(CalcHash, key);
-        make pos(integer) = mod(hash_value, len(get(map, buckets)));
+    if (gt(get(map, alpha), 3.0)) start
+        make buf(vector(pair(integer, integer)));
         make it(integer) = 0;
-        loop(lt(it, len(at(get(map, buckets), pos)))) start
-            if (eq(first(at(at(get(map, buckets), pos), it)), key)) start
-                second(at(at(get(map, buckets), pos), it)) = val;
+        loop (lt(it, len(get(map, buckets)))) start
+            make j(integer) = 0;
+            loop (lt(j, len(at(get(map, buckets), it)))) start
+                append(buf, at(at(get(map, buckets), it), j));
+                j = add(j, 1);
             finish
             it = add(it, 1);
         finish
-    finish else start
-
+        it = 0;
+        loop (lt(it, len(get(map, buckets)))) start
+            clear_vector(at(get(map, buckets), it));
+            it = add(it, 1);
+        finish
+        make prev_len = len(get(map, buckets));
+        it = 0;
+        loop (lt(it, prev_len)) start
+            make curr(vector(integer));
+            append(get(result, buckets), curr);
+            it = add(it, 1);
+        finish
+        it = 0;
+        loop (lt(it, len(buf))) start
+            make curr_key = fisrt(at(buf, it));
+            make curr_val = second(at(buf, it));
+            make curr_hash_value(integer) = call(CalcHash, curr_key);
+            make curr_pos(integer) = mod(hash_value, len(get(map, buckets)));
+            append(at(get(map, buckets), curr_pos), glue(curr_key, curr_val));        
+            it = add(it, 1);
+        finish
     finish
+    make hash_value(integer) = call(CalcHash, key);
+    make pos(integer) = mod(hash_value, len(get(map, buckets)));
+    make it(integer) = 0;
+    loop(lt(it, len(at(get(map, buckets), pos)))) start
+        if (eq(first(at(at(get(map, buckets), pos), it)), key)) start
+            second(at(at(get(map, buckets), pos), it)) = val;
+            return;
+        finish
+        it = add(it, 1);
+    finish
+    append(at(get(map, buckets), pos), glue(key, val));
 finish
 
 job Exists(make map(Hashmap), make key(integer)) (bool) start
@@ -63,5 +94,14 @@ job Exists(make map(Hashmap), make key(integer)) (bool) start
 finish
 
 job GetValue(make map(Hashmap), make key(integer)) (integer) start
-
+    make hash_value(integer) = call(CalcHash, key);
+    make pos(integer) = mod(hash_value, len(get(map, buckets)));
+    make it(integer) = 0;
+    loop (lt(it, len(at(get(map, buckets), pos)))) start
+        if (eq(first(at(at(get(map, buckets), pos), it)), key)) start
+            return second(at(at(get(map, buckets), pos), it));
+        finish
+        it = add(it, 1);
+    finish
+    return 0;
 finish
