@@ -1,0 +1,26 @@
+
+create Tree start
+
+    make curr_value(integer);
+    make depth_L(integer);
+    make depth_R(integer);
+    make node_L(pointer(Tree));
+    make node_R(pointer(Tree));
+
+finish
+
+job Insert(make root(Tree), make val(integer)) start
+
+finish
+
+job Exists(make root(Tree), make val(integer)) start
+
+finish
+
+job UpperBound(make root(Tree), make val(integer)) start
+
+finish
+
+job LowerBound(make root(Tree), make val(integer)) start
+
+finish
